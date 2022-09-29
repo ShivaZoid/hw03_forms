@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>{{title}}</title>
+{% endblock %}
+
+{% block group_description %}
+  <div class="container">
+    <p></p>
+    <h1>{{group.title}}</h1>
+    <p>{{group.description}}</p>
+    <p></p>
+  </div>
+{% endblock %}
+
+{% block content %}
+{% for post in page_obj %}
+  <div class="container">
+    <article>
+      <ul>
+        <li>
+            Автор: {{ post.author.get_full_name }}
+        </li>
+        <li>
+            Дата публикации: {{ post.pub_date|date:"d E Y" }}
+        </li>
+      </ul>
+    <p>{{ post.text }}</p>
+    </article>
+  </div>
+{% if not forloop.last %}<hr>{% endif %}
+{% endfor %}
+{% include 'includes/paginator.html' %}
+{% endblock %}
