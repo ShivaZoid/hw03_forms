@@ -47,13 +47,11 @@ def profile(request, username):
     """Страница пользователя с его постами."""
     template = 'posts/profile.html'
     profile_user = get_object_or_404(User, username=username)
-    posts = profile_user.posts.select_related(
-            "author"
-        ).order_by(
-            '-pub_date'
-        ).filter(
-            author__username=username
-        )
+    posts = (profile_user.posts
+             .select_related("author")
+             .order_by('-pub_date')
+             .filter(author__username=username)
+             )
     posts_counter = posts.count()
     fullname = request.user.get_full_name() if (
         request.user.is_authenticated) else ""
