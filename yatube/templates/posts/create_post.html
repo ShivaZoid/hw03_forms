@@ -14,6 +14,7 @@
         <div class="row justify-content-center">
         <div class="col-md-8 p-5">
             <div class="card">
+
             {% if is_edit %}
                 <div class="card-header">
                     Изменение поста
@@ -23,6 +24,7 @@
                     Новый пост
                 </div>
             {% endif %}
+
             <div class="card-body">
                 <form method="POST"
                 class="post-form"
@@ -34,8 +36,6 @@
                 {% endif %}
 
                 {% csrf_token %}
-
-
 
                 {% for field in form %}
                 <div class="form-group row my-3">
@@ -50,8 +50,6 @@
                   {% if field.field.required %}
                     <span class="required text-danger">*</span>
                   {% endif %}
-
-
                 {{ field|addclass:'form-control' }}
                 {% if field.help_text %}
                   <small

@@ -2,6 +2,7 @@ from django import forms
 
 
 def validate_not_empty(value):
+    """Валидация на пустую строку."""
     if value == '':
         raise forms.ValidationError(
             'А кто поле будет заполнять?',
