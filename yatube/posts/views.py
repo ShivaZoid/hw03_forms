@@ -35,9 +35,7 @@ def group_posts(request, slug):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context: Dict[str, Any] = {
-        'title': group.title,
         'group': group,
-        'posts': posts,
         'page_obj': page_obj,
     }
     return render(request, template, context)
@@ -72,10 +70,10 @@ def post_detail(request, post_id):
     """Страница поста."""
     template = 'posts/post_detail.html'
     post_info = get_object_or_404(Post, pk=post_id)
-    author_posts = post_info.author.posts.count()
+    number_of_posts = post_info.author.posts.count()
     context: Dict[str, Any] = {
         'post_info': post_info,
-        'author_posts': author_posts,
+        'number_of_posts': number_of_posts,
     }
     return render(request, template, context)
 
