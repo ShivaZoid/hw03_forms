@@ -145,6 +145,7 @@ dmypy.json
 
 .mypy_cache
 
+a_my_tes/
 htmlcov/
 .coverage
 .coverage.*
