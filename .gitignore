@@ -150,4 +150,8 @@ htmlcov/
 .coverage
 .coverage.*
 coverage.xml
+<<<<<<< HEAD
 *.cover 
+=======
+*.cover
+>>>>>>> 930bf74 (Мелкие правки, добавление 403стр. при отсутствии прав ред. пост v2.)
