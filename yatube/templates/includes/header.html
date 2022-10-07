@@ -24,7 +24,7 @@
         </li>
         {% if request.user.is_authenticated %}
 
-        {% if is_edit %}
+        {% if changed %}
           <li class="nav-item">
             <a class="nav-link
             {% if view_name  == 'posts:post_edit' %}active{% endif %}"

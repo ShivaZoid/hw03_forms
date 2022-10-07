@@ -5,6 +5,7 @@ from typing import Any, Dict
 from django.core.paginator import Paginator
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 
 
 ITEMS_PER_PAGE = 5
@@ -51,8 +52,6 @@ def profile(request, username):
              .filter(author__username=username)
              )
     posts_counter = posts.count()
-    fullname = request.user.get_full_name() if (
-        request.user.is_authenticated) else ""
     paginator = Paginator(posts, ITEMS_PER_PAGE)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -61,7 +60,6 @@ def profile(request, username):
         'profile_user': profile_user,
         'posts_counter': posts_counter,
         'page_obj': page_obj,
-        'fullname ': fullname,
     }
     return render(request, template, context)
 
@@ -85,7 +83,6 @@ def post_create(request):
     Только зарегистрированные пользователи.
     """
     template = 'posts/create_post.html'
-    title_new: str = 'Новый пост'
     if request.method == "POST":
         form = PostForm(request.POST)
 
@@ -95,9 +92,7 @@ def post_create(request):
             return redirect('posts:profile', username=request.user)
     else:
         form = PostForm()
-
     context: Dict[str, Any] = {
-        'title_new': title_new,
         'form': form,
     }
     return render(request, template, context)
@@ -110,23 +105,20 @@ def post_edit(request, post_id):
     Только зарегистрированные пользователи.
     """
     template = 'posts/create_post.html'
-    post = get_object_or_404(Post, id=post_id, author=request.user)
-    user_ = request.user.get_username()
-    is_edit = True
-
+    user_name = request.user.get_username()
+    post = get_object_or_404(Post, id=post_id)
     if request.method == 'GET':
-        form = PostForm()
-        if user_ != post.author.username:
-            return redirect('posts:post_detail')
-
+        form = PostForm(instance=post)
+        if user_name != post.author.username:
+            return HttpResponseForbidden()
     elif request.method == 'POST':
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
         return redirect('posts:post_detail', post.id)
     context = {
-        'form': form,
         'post': post,
-        'is_edit': is_edit,
+        'changed': True,
+        'form': form,
     }
     return render(request, template, context)
