@@ -145,6 +145,7 @@ dmypy.json
 
 .mypy_cache
 
+# test
 a_my_tes/
 htmlcov/
 .coverage
