@@ -1,3 +1,47 @@
-# backend_community_homework
+# Спринт 4 - Сообщества, создание записей
 
-[![CI](https://github.com/yandex-praktikum/hw03_forms/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/yandex-praktikum/hw03_forms/actions/workflows/python-app.yml)
+Добавлены следующие возможности:
+- регистрация пользователя,
+- вход/выход пользователя,
+- восстановления пароля,
+- создания записей сообщества,
+- подробная информация, редактирование только своей записи,
+- отображение постов пользователя,
+- пагинация, раздел Об авторе, Технологии, отображения профиля пользователя.
+
+## Установка
+
+Для запуска приложения в dev-режиме проделайте следующие шаги:
+1) Склонируйте репозиторий.
+
+2) Перейдите в папку с кодом и создайте виртуальное окружение:
+~~~
+python -m venv venv
+~~~
+
+3) Активируйте виртуальное окружение:
+~~~
+source venv\scripts\activate
+~~~
+
+4) Установите зависимости:
+~~~
+python -m pip install -r requirements.txt
+~~~
+
+5) Выполните миграции:
+~~~
+python manage.py makemigrations
+
+python manage.py migrate
+~~~
+
+6) Создайте суперпользователя:
+~~~
+python manage.py createsuperuser
+~~~
+
+7) Запустите сервер:
+~~~
+python manage.py runserver
+~~~
