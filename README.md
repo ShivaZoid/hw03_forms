@@ -20,7 +20,7 @@ python -m venv venv
 
 3) Активируйте виртуальное окружение:
 ~~~
-source venv\scripts\activate
+source venv/Scripts/activate
 ~~~
 
 4) Установите зависимости:
